@@ -31,7 +31,9 @@ pub async fn reset_password_1(email: String) -> Result<String, ServerFnError> {
             passwd: env::var("MAILER_PASSWD").unwrap(),
             smtp_server: env::var("MAILER_SMTP_SERVER").unwrap(),
         });
-        let host = leptos_axum::extract::<axum_extra::extract::Host>().await?.0;
+        let host = leptos_axum::extract::<axum_extra::typed_header::TypedHeader<headers::Host>>()
+            .await?
+            .0;
         let schema = if cfg!(debug_assertions) {
             "http"
         } else {

@@ -14,7 +14,7 @@ console_error_panic_hook = { version = "0.1", optional = true }
 leptos_axum = { version = "0.8.0", optional = true }
 leptos_meta = { version = "0.8.0" }
 tokio = { version = "1", features = ["rt-multi-thread"], optional = true }
-wasm-bindgen = { version = "=0.2.105", optional = true }
+wasm-bindgen = { version = "=0.2.108", optional = true }
 reactive_stores = { version = "0.2" }
 serde = { version = "1", features = ["derive"] }
 tracing = { version = "0.1" }
@@ -32,7 +32,9 @@ tracing-wasm = { version = "0.2", optional = true }
 tracing-subscriber = { version = "0.3", features = ["fmt"] }
 tower = { version = "0.5", optional = true }
 tower-http = { version = "0.6", features = ["fs", "trace"], optional = true }
-axum-extra = { version = "0.12", optional = true }
+axum-extra = { version = "0.12",features = ["typed-header"], optional = true }
+headers = { version = "0.4", optional = true }
+
 
 
 [features]
@@ -57,6 +59,7 @@ ssr = [
     "dep:tower",
     "dep:tower-http",
     "dep:axum-extra",
+    "dep:headers",
 ]
 
 # Defines a size-optimized profile for the WASM bundle in release mode
