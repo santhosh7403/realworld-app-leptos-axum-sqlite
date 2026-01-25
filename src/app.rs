@@ -164,23 +164,9 @@ pub fn App() -> impl IntoView {
                 </Routes>
             </main>
             <footer class=footer_class>
-
-                // move || {
-
-                // leptos::logging::log!("show_modal is {}", show_modal.get());
-                // format!(
-                // "{}",
-                // if show_modal.get() {
-                // "hidden"
-                // } else {
-                // ""
-                // },
-                // )
-                // }
-
                 <a href="/">"MyApp"</a>
                 <div class="">
-                    <p class="text-gray-600">"© 2025 My-Website"</p>
+                    <p class="text-gray-600">"© 2026 My-Website"</p>
                 </div>
             </footer>
         </Router>
