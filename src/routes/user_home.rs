@@ -40,22 +40,6 @@ async fn home_articles(
 async fn get_tags() -> Result<Vec<String>, ServerFnError> {
     // sqlx::query!("SELECT DISTINCT tag FROM ArticleTags")
     sqlx::query!(
-        // "SELECT
-        //     T1.tag As tag,
-        //     COUNT(T1.article) AS tag_count,
-        //     MAX(T2.created_at) AS max_created_at
-        // FROM
-        //     ArticleTags AS T1
-        // JOIN
-        //     Articles AS T2
-        // ON
-        //     T1.article = T2.slug
-        // GROUP BY
-        //     T1.tag
-        // ORDER BY
-        //     max_created_at DESC,
-        //     tag_count DESC
-        // LIMIT 10"
         "
             SELECT
                 tag,
@@ -290,9 +274,10 @@ pub fn SearchResults(
     let articles_view = move || {
         articles_out.with(move |x| {
             x.clone().map(move |res| {
-                let (total_count, page, amount) = if let Some(Ok((t, _))) = res { t } else { (0, 0, 0) };
-                if total_count>0 {
-                    global_state.search_results_window().set(true)}else{global_state.search_results_window().set(false)}
+                global_state.search_results_window().set(true);
+                let (total_count, page, amount) = if let Some(Ok((t, _))) = res { t } else {global_state.search_results_window().set(false); (0, 0, 0) };
+                // if total_count>0 {
+                //     global_state.search_results_window().set(true)}else{global_state.search_results_window().set(false)}
                 res.map(|res|{
 
                 view! {
@@ -316,13 +301,13 @@ pub fn SearchResults(
                                             (0, false) => amount,
                                             (_, _) => std::cmp::min((page + 1) * amount, total_count),
                                         }} " of "{total_count}
-                                        <button
-                                            class="text-blue-400 hover:underline hover:text-blue-500 transition duration-200 cursor-pointer px-8"
-                                            on:click=move |_| clear_search()
-                                        >
-                                            "Clear Search"
-                                        </button>
                                     </Show>
+                                    <button
+                                        class="text-blue-400 hover:underline hover:text-blue-500 transition duration-200 cursor-pointer px-8"
+                                        on:click=move |_| clear_search()
+                                    >
+                                        "Clear Search"
+                                    </button>
                                 </div>
                                 <ResultsViewPrevNextButton
                                     run_search
