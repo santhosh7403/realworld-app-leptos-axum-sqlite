@@ -9,7 +9,7 @@ pub fn HomeMain(username: crate::auth::UsernameSignal, user_profile: bool) -> im
     tracing::debug!("Starting HomePage component");
 
     view! {
-        <div class="mx-auto sm:px-6 lg:px-8 bg-gray-200 px-2 py-2">
+        <div class="mx-auto sm:px-6 lg:px-8 bg-gray-200 dark:bg-gray-900 px-2 py-2">
             <Show
                 when=move || !user_profile
                 fallback=move || {

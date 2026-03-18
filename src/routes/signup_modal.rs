@@ -99,9 +99,9 @@ where
     view! {
         <Title text="Signup" />
         <div class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-60">
-            <div class="block rounded-lg bg-white w-2/5 p-4 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] z-70">
+            <div class="block rounded-lg bg-white dark:bg-gray-800 dark:text-gray-100 w-2/5 p-4 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] z-70">
 
-                <h5 class="mb-5 text-xl font-medium leading-tight text-neutral-800">
+                <h5 class="mb-5 text-xl font-medium leading-tight text-neutral-500 dark:text-neutral-400">
                     Create an account.
                 </h5>
                 <p class="text-xs-center py-6">
@@ -110,7 +110,7 @@ where
                     </span>
                 </p>
                 <form>
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+                    <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="username">
                         User Name
                     </label>
                     <div class="mb-5">
@@ -125,7 +125,7 @@ where
                             required=true
                         />
                     </div>
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+                    <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="email">
                         Email
                     </label>
                     <div class="mb-5">
@@ -140,7 +140,7 @@ where
                             required=true
                         />
                     </div>
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+                    <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" for="password">
                         Password
                     </label>
                     <div class="mb-5 relative">

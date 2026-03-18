@@ -109,7 +109,7 @@ where
 {
     view! {
         <div class="bg-opacity-60 inset-0 z-50 flex items-center justify-center">
-            <div class="z-70 block w-4/5 rounded-lg bg-white p-4 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
+            <div class="z-70 block w-4/5 rounded-lg bg-white dark:bg-gray-800 dark:text-gray-100 p-4 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
                 <div class="mb-5 px-1 py-1">
                     <div class="mb-5">
                         <ArticleMeta username article=article_signal is_preview=false />
@@ -117,7 +117,7 @@ where
                     <div class="flex justify-between mb-5">
                         <div>
                             <div class="mb-2">
-                                <h1 class="text-xl leading-tight font-medium text-neutral-800">
+                                <h1 class="text-xl leading-tight font-medium text-neutral-800 dark:text-neutral-100">
                                     {article_signal.get_untracked().title}
                                 </h1>
                             </div>
@@ -253,11 +253,11 @@ pub fn CommentSection(
                         type="hidden"
                         value=move || article.with(|x| x.slug.to_string())
                     />
-                    <h2 class="mb-2 block text-sm font-bold text-gray-700">Comments</h2>
+                    <h2 class="mb-2 block text-sm font-bold text-gray-700 dark:text-gray-300">Comments</h2>
                     <div class="mb-1">
                         <textarea
                             node_ref=comment
-                            class="focus:shadow-outline w-full border-b appearance-none rounded px-3 py-2 leading-tight text-sm text-gray-700 shadow focus:outline-none"
+                            class="focus:shadow-outline w-full border-b dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 appearance-none rounded px-3 py-2 leading-tight text-sm text-gray-700 shadow focus:outline-none"
                             name="body"
                             prop:value=move || comment_value.get()
                             placeholder="Write a new comment...(min length 3 char)"

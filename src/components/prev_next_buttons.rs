@@ -28,7 +28,8 @@ pub fn PreviousNextButton(
         >
             <button
                 type="button"
-                class="px-4 cursor-pointer hover:text-blue-500 border rounded-full bg-gray-100"
+                class="px-4 cursor-pointer hover:text-blue-500 border dark:border-gray-600 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200"
+                // class="px-4 cursor-pointer hover:text-blue-500 border rounded-full bg-gray-100"
                 on:click=move |_| {
                     let prev_page = format!(
                         "{}{}{}",
@@ -68,7 +69,7 @@ pub fn PreviousNextButton(
             >
                 <button
                     type="button"
-                    class="px-4 cursor-pointer hover:text-blue-500 border rounded-full bg-gray-100"
+                    class="px-4 cursor-pointer hover:text-blue-500 border dark:border-gray-600 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200"
                     on:click=move |_| {
                         let next_page = format!(
                             "{}{}{}",

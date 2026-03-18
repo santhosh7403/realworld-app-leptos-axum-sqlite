@@ -114,3 +114,55 @@ pub async fn current_user() -> Result<crate::models::User, ServerFnError> {
         ServerFnError::ServerError("you must be logged in".into())
     })
 }
+
+#[server(UpdateThemeMode, "/api")]
+#[tracing::instrument]
+pub async fn update_theme_mode(theme: String) -> Result<(), ServerFnError> {
+    let Some(logged_user) = super::get_username() else {
+        return Err(ServerFnError::ServerError("you must be logged in".into()));
+    };
+
+    match crate::models::User::get(logged_user).await {
+        Ok(user) => {
+            if let Err(err) = user.set_theme_mode(theme).update_theme_mode().await {
+                tracing::error!("problem while updating theme_mode: {err:?}");
+                Err(ServerFnError::ServerError("failed to update theme".into()))
+            } else {
+                Ok(())
+            }
+        }
+        Err(err) => {
+            tracing::error!("problem while retrieving current_user: {err:?}");
+            Err(ServerFnError::ServerError("you must be logged in".into()))
+        }
+    }
+}
+
+#[server(UpdatePerPageAmount, "/api")]
+#[tracing::instrument]
+pub async fn update_per_page_amount(amount: u32) -> Result<(), ServerFnError> {
+    let Some(logged_user) = super::get_username() else {
+        return Err(ServerFnError::ServerError("you must be logged in".into()));
+    };
+
+    match crate::models::User::get(logged_user).await {
+        Ok(user) => {
+            if let Err(err) = user
+                .set_per_page_amount(amount as i64)
+                .update_per_page_amount()
+                .await
+            {
+                tracing::error!("problem while updating per_page_amount: {err:?}");
+                Err(ServerFnError::ServerError(
+                    "failed to update per page amount".into(),
+                ))
+            } else {
+                Ok(())
+            }
+        }
+        Err(err) => {
+            tracing::error!("problem while retrieving current_user: {err:?}");
+            Err(ServerFnError::ServerError("you must be logged in".into()))
+        }
+    }
+}

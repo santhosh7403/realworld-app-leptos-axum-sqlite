@@ -49,17 +49,17 @@ fn ArticlePreview(username: crate::auth::UsernameSignal, article: ArticleSignal)
         use_context::<RwSignal<Option<u32>>>().expect("Should have the per_page signal from home");
 
     view! {
-        <div class="mb-2 p-4 bg-white rounded-lg shadow-md">
+        <div class="mb-2 p-4 bg-white dark:bg-gray-800 dark:text-gray-100 rounded-lg shadow-md">
             <div class="flex items-center gap-4 mb-4">
                 <ArticleMeta username=username article=article is_preview=true />
             </div>
             <A href=move || format!("/article/{}", article.with(|x| x.slug.clone()))>
-                <h2 class="text-2xl font-bold mb-2 text-gray-800">
+                <h2 class="text-2xl font-bold mb-2 text-gray-800 dark:text-gray-300">
                     {move || article.with(|x| x.title.to_string())}
                 </h2>
             </A>
             <A href=move || format!("/article/{}", article.with(|x| x.slug.clone()))>
-                <p class="text-gray-700 mb-4">
+                <p class="text-gray-700 dark:text-gray-300 mb-4">
                     {move || article.with(|x| x.description.to_string())}
                 </p>
             </A>
@@ -84,7 +84,7 @@ fn ArticlePreview(username: crate::auth::UsernameSignal, article: ArticleSignal)
                             children=move |(_, tag): (usize, String)| {
                                 let tag_now = tag.clone();
                                 view! {
-                                    <span class="bg-gray-200 text-gray-700 px-2 py-1 rounded text-xs flex items-center gap-1">
+                                    <span class="bg-gray-200 dark:bg-gray-700 dark:text-gray-200 text-gray-700 dark:text-gray-300 px-2 py-1 rounded text-xs flex items-center gap-1">
                                         <A href=move || {
                                             pagination()
                                                 .unwrap_or_default()
@@ -127,7 +127,7 @@ pub fn ArticleMeta(
 
     view! {
         <div class="article-meta">
-            <div class="flex items-center gap-4 text-gray-700">
+            <div class="flex items-center gap-4 text-gray-700 dark:text-gray-300">
                 <Show when=move || is_preview>
                     <AuthorUserIcon article_signal=article />
                 </Show>

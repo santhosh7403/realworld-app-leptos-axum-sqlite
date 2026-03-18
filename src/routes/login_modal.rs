@@ -82,18 +82,18 @@ where
     view! {
         <Title text="Login" />
         <div class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-60">
-            <div class="block rounded-lg bg-white w-2/5 p-4 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] z-70">
-                <h5 class="mb-5 text-xl font-medium leading-tight text-neutral-800">
+            <div class="block rounded-lg bg-white dark:bg-gray-800 dark:text-gray-100 w-2/5 p-4 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] z-70">
+                <h5 class="mb-5 text-xl font-medium leading-tight text-neutral-500 dark:text-neutral-400">
                     Please login with your credentials.
                 </h5>
                 <form>
-                    <label class="block text-gray-700 text-sm font-bold " for="username">
+                    <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold " for="username">
                         User Name
                     </label>
                     <div class="mb-5">
                         <input
                             node_ref=login_user
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 leading-tight focus:outline-none focus:shadow-outline"
                             id="username"
                             name="username"
                             type="text"
@@ -102,13 +102,13 @@ where
                             required=true
                         />
                     </div>
-                    <label class="block text-gray-700 text-sm font-bold" for="password">
+                    <label class="block text-gray-700 dark:text-gray-300 text-sm font-bold" for="password">
                         Password
                     </label>
                     <div class="mb-5 relative">
                         <input
                             node_ref=login_pass
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-300 leading-tight focus:outline-none focus:shadow-outline"
                             id="password"
                             name="password"
                             type=move || {

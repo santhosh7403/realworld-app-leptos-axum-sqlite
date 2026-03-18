@@ -66,6 +66,8 @@ pub fn App() -> impl IntoView {
     provide_context(Store::new(GlobalState::default()));
     let per_page = RwSignal::new(Some(10u32));
     provide_context(per_page);
+    let theme_mode = RwSignal::new("dark".to_string());
+    provide_context(theme_mode);
 
     let username: crate::auth::UsernameSignal = RwSignal::new(None);
     let logout = ServerAction::<crate::auth::LogoutAction>::new();
@@ -90,15 +92,30 @@ pub fn App() -> impl IntoView {
     provide_context(show_modal);
 
     Effect::new(move |_| {
-        user.get()
-            .map(|x| username.set(x.map(|y| y.username()).ok()));
+        user.get().map(|x| {
+            if let Ok(u) = x {
+                username.set(Some(u.username()));
+                per_page.set(Some(u.per_page_amount() as u32));
+                theme_mode.set(u.theme_mode());
+            } else {
+                username.set(None);
+            }
+        });
     });
 
     let body_class = move || {
-        if show_modal.get() {
+        let cls = if show_modal.get() {
             "bg-gray-800"
+        } else if theme_mode.get() == "dark" {
+            "bg-gray-900 text-white"
         } else {
-            "bg-gray-100"
+            "bg-gray-100 text-black"
+        };
+
+        if theme_mode.get() == "dark" {
+            format!("{} {}", cls, "dark")
+        } else {
+            cls.to_string()
         }
     };
 
@@ -106,7 +123,7 @@ pub fn App() -> impl IntoView {
         if show_modal.get() {
             "hidden"
         } else {
-            "bg-gray-200 text-gray-600 text-center text-xs sticky bottom-0"
+            "bg-gray-200 text-gray-600 dark:bg-gray-900 dark:text-gray-400 text-center text-xs sticky bottom-0"
         }
     };
 
@@ -165,8 +182,8 @@ pub fn App() -> impl IntoView {
             </main>
             <footer class=footer_class>
                 <a href="/">"MyApp"</a>
-                <div class="">
-                    <p class="text-gray-600">"© 2026 My-Website"</p>
+                <div class="bg-gray-200 text-gray-600 dark:bg-gray-900 dark:text-gray-400 text-center text-xs sticky bottom-0">
+                    <p class="text-gray-600 dark:text-gray-400">"© 2026 My-Website"</p>
                 </div>
             </footer>
         </Router>

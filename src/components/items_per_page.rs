@@ -4,7 +4,7 @@ use leptos_router::hooks::{use_params_map, use_query, use_query_map};
 use reactive_stores::Store;
 
 #[component]
-pub fn ItemsPerPage() -> impl IntoView {
+pub fn ItemsPerPage(username: crate::auth::UsernameSignal) -> impl IntoView {
     let params = use_params_map();
     let route_user = move || params.with(|x| x.get("user").unwrap_or_default());
     let query = use_query_map();
@@ -16,14 +16,24 @@ pub fn ItemsPerPage() -> impl IntoView {
 
     view! {
         <div class="">
-            <label for="articlesPerPage" class="text-gray-700 px-1">
+            <label for="articlesPerPage" class="text-gray-700 dark:text-gray-300 px-1">
                 "Items Per Page"
             </label>
             <select
                 id="articlesPerPage"
-                class="focus:shadow-outline rounded border px-1 py-1 leading-tight text-gray-700 shadow focus:outline-none"
+                class="focus:shadow-outline rounded border px-1 py-1 leading-tight text-gray-700 shadow focus:outline-none dark:text-gray-200 dark:bg-gray-700 dark:border-gray-600"
+                // class="focus:shadow-outline rounded border px-1 py-1 leading-tight text-gray-700 shadow focus:outline-none"
                 on:change:target=move |ev| {
-                    per_page.set(Some(ev.target().value().parse::<u32>().unwrap()));
+                    let amount = ev.target().value().parse::<u32>().unwrap();
+                    per_page.set(Some(amount));
+
+                    // let username = use_context::<crate::auth::UsernameSignal>().expect("username context missing");
+                    if username.get().is_some() {
+                        leptos::task::spawn(async move {
+                            let _ = crate::auth::update_per_page_amount(amount).await;
+                        });
+                    }
+
                     let pagination = use_query::<crate::models::Pagination>();
                     let navigate = leptos_router::hooks::use_navigate();
                     let page_url = format!(

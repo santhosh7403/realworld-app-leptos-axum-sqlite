@@ -142,12 +142,12 @@ where
     view! {
         <div class="px-1">
             <div class="mb-5">
-                <div class="flex justify-between px-2 bg-gray-200">
+                <div class="flex justify-between px-2 bg-gray-200 dark:bg-gray-700">
                     <div class="flex">
                         <UserArticlesTab favourite route_user pagination />
                         <FavouritedArticlesTab favourite route_user pagination />
                     </div>
-                    <ItemsPerPage />
+                    <ItemsPerPage username/>
                 </div>
                 <UserInfo on_back_event />
                 <ArticlePreviewList username articles />
@@ -278,7 +278,7 @@ where
     );
 
     view! {
-        <div class="gap-4 shadow-md rounded-lg mb-3 px-2 py-2 bg-white">
+        <div class="gap-4 shadow-md rounded-lg mb-3 px-2 py-2 bg-white dark:bg-gray-800 dark:text-gray-100">
             <Transition fallback=move || view! { <p>"Loading user profile"</p> }>
                 <ErrorBoundary fallback=|_| {
                     view! {

@@ -255,13 +255,13 @@ where
     view! {
         <Title text="Editor" />
         <div class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-60">
-            <div class="block rounded-lg bg-white w-2/5 p-4 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] z-70">
+            <div class="block rounded-lg bg-white dark:bg-gray-800 dark:text-gray-100 w-2/5 p-4 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] z-70">
                 <div>
                     <p class=move || {
                         format!(
                             "font-medium {}",
                             if editor_status.get() == "Successful." {
-                                "text-green-500"
+                                "text-gray-700 dark:text-gray-300"
                             } else {
                                 "text-red-500"
                             },

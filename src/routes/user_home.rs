@@ -188,7 +188,7 @@ pub fn HomePage(username: crate::auth::UsernameSignal) -> impl IntoView {
     let run_search = expect_context::<ServerAction<SearchAction>>();
     view! {
         <Title text="Home" />
-        <div class="mx-auto lg:px-8 bg-gray-200 px-2 py-2 sm:px-0">
+        <div class="mx-auto lg:px-8 bg-gray-200 dark:bg-gray-700 dark:border-gray-600 px-2 py-2 sm:px-0">
             <div class="">
                 <div class="flex justify-between">
                     <div>
@@ -198,12 +198,12 @@ pub fn HomePage(username: crate::auth::UsernameSignal) -> impl IntoView {
                     <div>
                         <SearchArticle run_search />
                     </div>
-                    <ItemsPerPage />
+                    <ItemsPerPage username/>
                 </div>
                 <SearchResults run_search username />
                 <Show when=move || !global_state.search_results_window().get()>
                     <Show when=move || !pagination.get().unwrap_or_default().get_my_feed()>
-                        <div class="flex gap-1 rounded bg-white mb-2">
+                        <div class="flex gap-1 rounded bg-white dark:bg-gray-800 dark:text-gray-100 mb-2">
                             <span class="font-bold m-1">Popular Tags:</span>
                             <TagList />
                         </div>
@@ -418,7 +418,7 @@ fn SearchView(
     };
 
     view! {
-        <div class="mb-2 p-4 bg-white rounded-lg shadow-md">
+        <div class="mb-2 p-4 bg-white dark:bg-gray-800 dark:text-gray-100 rounded-lg shadow-md">
             <p>
                 <span class="font-bold">"Title: "</span>
                 <span inner_html=article_res.title></span>
@@ -502,7 +502,7 @@ fn SearchArticle(run_search: ServerAction<SearchAction>) -> impl IntoView {
             <div class="flex justify-end">
                 <div class="flex justify-end">
                     <input
-                        class="shadow appearance-none bg-white border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        class="shadow appearance-none bg-white dark:bg-gray-800 dark:text-gray-100 border rounded w-full py-1 px-3 text-gray-700 dark:text-gray-300 leading-tight focus:outline-none focus:shadow-outline"
                         type="text"
                         name="search"
                         minlength=2
@@ -568,7 +568,7 @@ fn YourFeedTab(
                 format!(
                     "px-1 m-1 font-bold disabled:cursor-not-allowed {}",
                     if username.with(Option::is_none) {
-                        "cursor-not-allowed bg-gray-200"
+                        "cursor-not-allowed bg-gray-200 dark:bg-gray-700 dark:border-gray-600"
                     } else if pagination
                         .with(|x| {
                             x.as_ref()
@@ -576,9 +576,9 @@ fn YourFeedTab(
                                 .unwrap_or_default()
                         })
                     {
-                        "border-b-8 bg-gray-200"
+                        "border-b-8 bg-gray-200 dark:bg-gray-700 dark:border-gray-600"
                     } else {
-                        "bg-gray-200 cursor-pointer"
+                        "bg-gray-200 dark:bg-gray-700 dark:border-gray-600 cursor-pointer"
                     },
                 )
             }
@@ -607,9 +607,9 @@ fn GlobalFeedTab(pagination: Memo<Result<Pagination, ParamsError>>) -> impl Into
                                 .unwrap_or_default()
                         })
                     {
-                        "border-b-8 bg-gray-200"
+                        "border-b-8 bg-gray-200 dark:bg-gray-700 dark:border-gray-600"
                     } else {
-                        "bg-gray-200 cursor-pointer"
+                        "bg-gray-200 dark:bg-gray-700 dark:border-gray-600 cursor-pointer"
                     },
                 )
             }
@@ -658,7 +658,7 @@ fn TagList() -> impl IntoView {
                                         class=move || {
                                             format!(
                                                 "rounded px-1 py-0.5 hover:bg-green-300 {}",
-                                                if same { "bg-green-200" } else { "bg-gray-200" },
+                                                if same { "bg-green-200" } else { "bg-gray-200 dark:bg-gray-700 dark:border-gray-600" },
                                             )
                                         }
                                         href=move || {

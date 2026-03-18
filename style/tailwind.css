@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 .navitem {
     @apply flex flex-col items-center p-3 md:p-4 rounded-xl hover:bg-gray-700 hover:text-blue-300 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2;
@@ -9,7 +10,7 @@
 }
 
 .input-field-common {
-    @apply shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:ring;
+    @apply shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:ring disabled:text-gray-400 disabled:cursor-not-allowed dark:text-gray-200 dark:bg-gray-700 dark:border-gray-600;
 }
 
 .btn-primary {
