@@ -143,12 +143,13 @@ pub fn HomePage(username: crate::auth::UsernameSignal) -> impl IntoView {
     show_modal.set(false); // Return from any Modal page should bring the home page front
 
     let articles = Resource::new(
-        move || pagination.get().unwrap_or_default(),
-        move |pagination| async move {
+        move || (per_page.get(), pagination.get().unwrap_or_default()),
+        move |(per_page, pagination)| async move {
             tracing::debug!("making another request: {pagination:?}");
             home_articles(
                 pagination.get_page(),
-                pagination.get_amount(),
+                // pagination.get_amount(),
+                per_page.unwrap_or_default(),
                 pagination.get_tag().to_string(),
                 pagination.get_my_feed(),
             )
@@ -502,7 +503,7 @@ fn SearchArticle(run_search: ServerAction<SearchAction>) -> impl IntoView {
             <div class="flex justify-end">
                 <div class="flex justify-end">
                     <input
-                        class="shadow appearance-none bg-white dark:bg-gray-800 dark:text-gray-100 border rounded w-full py-1 px-3 text-gray-700 dark:text-gray-300 leading-tight focus:outline-none focus:shadow-outline"
+                        class="shadow appearance-none bg-white dark:bg-gray-800 border rounded w-full py-1 px-3 text-gray-700 dark:text-gray-300 leading-tight focus:outline-none focus:shadow-outline"
                         type="text"
                         name="search"
                         minlength=2

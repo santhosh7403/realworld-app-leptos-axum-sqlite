@@ -89,7 +89,7 @@ fn ArticlePreview(username: crate::auth::UsernameSignal, article: ArticleSignal)
                                             pagination()
                                                 .unwrap_or_default()
                                                 .set_tag(&tag_now)
-                                                .set_amount(per_page.get_untracked().unwrap())
+                                                .set_amount(per_page.get().unwrap())
                                                 .to_string()
                                         }>{tag}</A>
                                     </span>
