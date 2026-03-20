@@ -82,10 +82,16 @@ cargo leptos serve
 Once the application has started successfully, access it via your web browser at [ localhost:3000 ](http://localhost:3000/)
 
 Sample application screens.
+<img width="1912" height="1031" alt="image" src="https://github.com/user-attachments/assets/582fa559-78a9-4f0c-804b-1e8b62415e28" />
 
-<img width="1476" height="907" alt="image" src="https://github.com/user-attachments/assets/e89636a4-444a-40a3-b5e9-1232312befdd" />
-<img width="1477" height="942" alt="image" src="https://github.com/user-attachments/assets/8d60c6fa-000f-4a93-9f10-4282b6cad0f7" />
-<img width="1468" height="717" alt="image" src="https://github.com/user-attachments/assets/9153d428-8a52-49d9-b450-e8e2a91a2d85" />
+
+<img width="1912" height="1031" alt="image" src="https://github.com/user-attachments/assets/63eeb201-34d4-4f97-b125-f4c2602fc220" />
+
+
+
+<img width="1912" height="1031" alt="image" src="https://github.com/user-attachments/assets/85c8c011-f677-4a2b-9be5-4cd2c9360208" />
+
+
 
 More screenshots are [ available here ](https://github.com/santhosh7403/realworld-app-leptos-axum-sqlite/blob/main/App_Screenshots.md)
 
