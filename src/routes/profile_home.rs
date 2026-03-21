@@ -78,9 +78,8 @@ pub async fn user_profile(username: String) -> Result<UserProfileModel, ServerFn
 pub fn Profile(username: crate::auth::UsernameSignal) -> impl IntoView {
     let params = use_params_map();
 
-    let route_user = move || params.with(|x| x.get("user").unwrap_or_default());
-    // let (route_user, set_route_user) = signal(String::new());
-    // Effect::new(move || set_route_user(params.with(|x| x.get("user").unwrap_or_default())));
+    // let route_user = move || params.with(|x| x.get("user").unwrap_or_default());
+    let route_user = Memo::new(move |_| params.with(|x| x.get("user").unwrap_or_default()));
 
     let global_state = expect_context::<Store<GlobalState>>();
     global_state.is_profile().set(true);
@@ -97,7 +96,7 @@ pub fn Profile(username: crate::auth::UsernameSignal) -> impl IntoView {
     };
 
     view! {
-        <Title text=move || format!("{}'s profile", route_user()) />
+        <Title text=move || format!("{}'s profile", route_user.get()) />
         <div>
             <ProfileHome on_back_event username route_user />
         </div>
@@ -105,21 +104,18 @@ pub fn Profile(username: crate::auth::UsernameSignal) -> impl IntoView {
 }
 
 #[component]
-pub fn ProfileHome<C, D>(
+pub fn ProfileHome<C>(
     on_back_event: C,
     username: crate::auth::UsernameSignal,
-    route_user: D,
+    route_user: Memo<String>,
 ) -> impl IntoView
 where
     C: Fn() + 'static + Copy + Send,
-    D: Fn() -> String + 'static + Copy + Send + Sync,
 {
     let pagination = use_query::<crate::models::Pagination>();
     let per_page: RwSignal<Option<u32>> =
         use_context().expect("per_page context should be available");
 
-    // let params = use_params_map();
-    // let route_user = move || params.with_untracked(|x| x.get("user").unwrap_or_default());
     let query = use_query_map();
     let favourite = move || query.with(|x| x.get("favourites").map(|_| true));
 
@@ -127,7 +123,7 @@ where
         move || {
             (
                 favourite(),
-                route_user(),
+                route_user.get(),
                 pagination.get().unwrap_or_default().get_page(),
                 per_page.get().unwrap(),
             )
@@ -138,7 +134,7 @@ where
     let global_state = expect_context::<Store<GlobalState>>();
     global_state
         .back_url()
-        .set(format!("/profile/{}", route_user()));
+        .set(format!("/profile/{}", route_user.get_untracked()));
     view! {
         <div class="px-1">
             <div class="mb-5">
@@ -165,14 +161,13 @@ where
 }
 
 #[component]
-fn UserArticlesTab<A, B>(
+fn UserArticlesTab<A>(
     favourite: A,
-    route_user: B,
+    route_user: Memo<String>,
     pagination: Memo<Result<Pagination, ParamsError>>,
 ) -> impl IntoView
 where
     A: Fn() -> Option<bool> + 'static + Send,
-    B: Fn() -> String + 'static + Send + Copy,
 {
     let per_page: RwSignal<Option<u32>> =
         use_context().expect("per_page context should be available");
@@ -196,7 +191,7 @@ where
                     let navigate = leptos_router::hooks::use_navigate();
                     let profile_url = format!(
                         "/profile/{}{}",
-                        route_user(),
+                        route_user.get_untracked(),
                         pagination
                             .get()
                             .unwrap_or_default()
@@ -208,7 +203,7 @@ where
                     navigate(&profile_url, Default::default());
                 }
             >
-                {move || route_user()}
+                {move || route_user.get()}
                 "'s Articles"
             </button>
         </div>
@@ -216,14 +211,13 @@ where
 }
 
 #[component]
-fn FavouritedArticlesTab<A, B>(
+fn FavouritedArticlesTab<A>(
     favourite: A,
-    route_user: B,
+    route_user: Memo<String>,
     pagination: Memo<Result<Pagination, ParamsError>>,
 ) -> impl IntoView
 where
     A: Fn() -> Option<bool> + 'static + Send,
-    B: Fn() -> String + 'static + Send + Copy,
 {
     let per_page: RwSignal<Option<u32>> =
         use_context().expect("per_page context should be available");
@@ -247,7 +241,7 @@ where
                     let navigate = leptos_router::hooks::use_navigate();
                     let favourited_url = format!(
                         "/profile/{}{}{}",
-                        route_user(),
+                        route_user.get_untracked(),
                         pagination
                             .get()
                             .unwrap_or_default()
