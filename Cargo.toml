@@ -14,7 +14,7 @@ console_error_panic_hook = { version = "0.1", optional = true }
 leptos_axum = { version = "0.8.0", optional = true }
 leptos_meta = { version = "0.8.0" }
 tokio = { version = "1", features = ["rt-multi-thread"], optional = true }
-wasm-bindgen = { version = "=0.2.114", optional = true }
+wasm-bindgen = { version = "0.2.126", optional = true }
 reactive_stores = { version = "0.4" }
 serde = { version = "1", features = ["derive"] }
 tracing = { version = "0.1" }
@@ -27,7 +27,7 @@ sqlx = { version = "0.8", features = [
     "sqlite",
     "chrono",
 ], optional = true }
-mail-send = { version = "0.5", optional = true }
+mail-send = { version = "0.6", optional = true }
 tracing-wasm = { version = "0.2", optional = true }
 tracing-subscriber = { version = "0.3", features = ["fmt"] }
 tower = { version = "0.5", optional = true }

@@ -109,6 +109,21 @@ To remove this default data, delete the basedata files within the `./migrations`
 
 The application features a robust full-text search capability powered by SQLite FTS5, which indexes three key fields from the `articles` table. For developers interested in the implementation or experimenting with different search methodologies, comprehensive documentation is available in the sqlite fts5 documentation[ here ](https://www.sqlite.org/fts5.html#overview_of_fts5)
 
+## 🏗️ Other Variants
+
+If you are looking for this same application with different frameworks or databases, check out these versions:
+
+| Framework | Database | Auth Type | Auth Crates | Special Feature | Repository |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Leptos** | SQLite | JWT | jsonwebtoken | | **This Repository** |
+| **Dioxus** | SQLite | JWT | jsonwebtoken | | [View Repo](https://github.com/santhosh7403/realworld-app-dioxus-sqlite) |
+| **Dioxus** | SQLite | Session | axum_session, axum_session_auth | | [View Repo](https://github.com/santhosh7403/axum-session-auth-realworld-app-dioxus-sqlite) |
+| **Dioxus** | SQLite | Session | tower_sessions, axum_login | superadmin, fine grained authorization | [View Repo](https://github.com/santhosh7403/tower-sessions-axum-login-realworld-app-dioxus-sqlite) |
+| **Dioxus** | SQLite | PASETO | pasetors | superadmin, fine grained authorization | [View Repo](https://github.com/santhosh7403/paseto-auth-realworld-app-dioxus-sqlite) |
+| **Leptos** | PostgreSQL | Session | axum_session, axum_session_auth | | [View Repo](https://github.com/santhosh7403/axum-session-auth-realworld-app-leptos-postgres)|
+| **Leptos** | PostgreSQL | JWT | jsonwebtoken | | [View Repo](https://github.com/santhosh7403/realworld-app-leptos-axum) |
+
+
 ## 🙏 Inspiration and Acknowledgements
 
 The foundational structure of this application is derived from the realworld example by [Bechma/realworld-leptos](https://github.com/Bechma/realworld-leptos), with appreciation to any antecedent projects.
@@ -122,3 +137,5 @@ This particular version was initiated during the transition from Leptos 0.6 to 0
 *   Integration of SQLite FTS5 for comprehensive full-text search capabilities.
 
 *   An updated, non-reloading pagination method for search results
+
+*   Dark mode styling and user preference persistence.

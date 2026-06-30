@@ -16,7 +16,7 @@ async fn main() {
 
     tracing_subscriber::fmt()
         .with_level(true)
-        .with_max_level(tracing::Level::DEBUG)
+        .with_max_level(tracing::Level::INFO)
         .init();
     // Init the pool into static
     database::init_db()
@@ -33,15 +33,13 @@ async fn main() {
         .layer(
             tower_http::trace::TraceLayer::new_for_http()
                 .make_span_with(
-                    tower_http::trace::DefaultMakeSpan::new().level(tracing::Level::DEBUG),
+                    tower_http::trace::DefaultMakeSpan::new().level(tracing::Level::INFO),
                 )
-                .on_request(tower_http::trace::DefaultOnRequest::new().level(tracing::Level::DEBUG))
+                .on_request(tower_http::trace::DefaultOnRequest::new().level(tracing::Level::INFO))
                 .on_response(
-                    tower_http::trace::DefaultOnResponse::new().level(tracing::Level::DEBUG),
+                    tower_http::trace::DefaultOnResponse::new().level(tracing::Level::INFO),
                 )
-                .on_failure(
-                    tower_http::trace::DefaultOnFailure::new().level(tracing::Level::DEBUG),
-                ),
+                .on_failure(tower_http::trace::DefaultOnFailure::new().level(tracing::Level::INFO)),
         )
         .layer(axum::middleware::from_fn(
             realworld_app_leptos_axum_sqlite::auth::auth_middleware,
